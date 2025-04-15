@@ -5,8 +5,10 @@ import com.example.ToDoA.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class GroupService {
@@ -21,8 +23,29 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
-    public Group findByIdGroup(int id){
-        Group by = groupRepository.findBy(id);
-        return by;
+    public Optional<Group> findByIdGroup(int id){
+        return groupRepository.findById(id);
+    }
+
+    public Group createGroup(String title){
+        Group group = new Group();
+        group.setTitle(title);
+        group.setCreated_at(LocalDateTime.now());
+        return groupRepository.save(group);
+    }
+
+    public Group updateGroup(int id, Group newGroupUpdate){
+        Optional<Group> optionalGroup = groupRepository.findById(id);
+        if(optionalGroup.isPresent()){
+            Group existingGroup = optionalGroup.get();
+            existingGroup.setTitle(newGroupUpdate.getTitle());
+            return groupRepository.save(existingGroup);
+        }else{
+            return null;
+        }
+    }
+
+    public void deleteGroup(int id){
+        groupRepository.deleteById(id);
     }
 }
