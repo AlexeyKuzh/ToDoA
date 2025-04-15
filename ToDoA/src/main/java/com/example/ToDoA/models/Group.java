@@ -10,7 +10,7 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "titl")
-    private String titl;
+    private String title;
     @Column(name = "created_at")
     private LocalDateTime created_at;
 
@@ -22,12 +22,12 @@ public class Group {
         this.id = id;
     }
 
-    public String getTitl() {
-        return titl;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTitl(String titl) {
-        this.titl = titl;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public LocalDateTime getCreated_at() {
