@@ -1,6 +1,5 @@
 package com.example.ToDoA.service;
 
-import com.example.ToDoA.exceptions.GroupNotFoundException;
 import com.example.ToDoA.models.Group;
 import com.example.ToDoA.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,8 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
-    public Group findByIdGroup(int id){
-        return groupRepository.findById(id)
-                .orElseThrow(() -> new GroupNotFoundException("Group with id "+ id + " not found"));
+    public Optional<Group> findByIdGroup(int id){
+        return groupRepository.findById(id);
     }
 
     public Group createGroup(String title){

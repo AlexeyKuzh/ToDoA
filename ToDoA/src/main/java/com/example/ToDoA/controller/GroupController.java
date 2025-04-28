@@ -1,14 +1,11 @@
 package com.example.ToDoA.controller;
 
-import com.example.ToDoA.exceptions.GroupNotFoundException;
 import com.example.ToDoA.models.Group;
 import com.example.ToDoA.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -28,13 +25,8 @@ public class GroupController {
     }
 
     @GetMapping("/{id}")
-    public Group getByIdGroup(@PathVariable int id){
+    public Optional<Group> getByIdGroup(@PathVariable int id){
         return groupService.findByIdGroup(id);
-    }
-    @ExceptionHandler(GroupNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> handleGroupNotFound(GroupNotFoundException ex){
-        return Map.of("massage", ex.getMessage());
     }
 
     @PostMapping
