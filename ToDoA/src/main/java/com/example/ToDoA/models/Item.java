@@ -15,6 +15,10 @@ public class Item {
     @Column(name = "created_at")
     private LocalDateTime created_at;
 
+    @ManyToOne
+    @JoinColumn(name = "item_group")
+    private Group group;
+
     public int getId() {
         return id;
     }

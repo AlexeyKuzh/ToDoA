@@ -2,6 +2,7 @@ package com.example.ToDoA.models;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "groups")
@@ -13,6 +14,9 @@ public class Group {
     private String title;
     @Column(name = "created_at")
     private LocalDateTime created_at;
+
+    @OneToMany(mappedBy = "group")
+    private List<Item> itemList;
 
     public int getId() {
         return id;
