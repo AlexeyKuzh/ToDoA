@@ -35,8 +35,8 @@ public class GroupService {
     }
 
     public Group updateGroup(int id, Group newGroupUpdate){
-        Optional<Group> optionalGroup = groupRepository.findById(id);
-        if(optionalGroup.isPresent()){
+        Optional<Group> optionalGroup = groupRepository.findById(id);//Сначала надо найти по айди
+        if(optionalGroup.isPresent()){//убидиться что существует
             Group existingGroup = optionalGroup.get();
             existingGroup.setTitle(newGroupUpdate.getTitle());
             return groupRepository.save(existingGroup);
