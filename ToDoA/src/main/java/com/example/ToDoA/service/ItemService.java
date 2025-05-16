@@ -47,8 +47,8 @@ public class ItemService {
     public void deleteItem(int id){
         itemRepository.deleteById(id);
     }
-    //
-    public Optional<Item> findByIdItemsGroup(Group group){
-        return itemRepository.findById(group.getId());
+    //этот метод достает итемы по группе
+    public List<Item>findItemsByGroup(Group group){
+        return itemRepository.findByGroup(group);
     }
 }
