@@ -1,7 +1,9 @@
 package com.example.ToDoA.service;
 
+import com.example.ToDoA.exceptions.GroupNotFoundException;
 import com.example.ToDoA.models.Group;
 import com.example.ToDoA.models.Item;
+import com.example.ToDoA.repository.GroupRepository;
 import com.example.ToDoA.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +14,11 @@ import java.util.Optional;
 
 @Service
 public class ItemService {
-
+    private final GroupRepository groupRepository;
     private final ItemRepository itemRepository;
     @Autowired
-    public ItemService(ItemRepository itemRepository) {
+    public ItemService(GroupRepository groupRepository, ItemRepository itemRepository) {
+        this.groupRepository = groupRepository;
         this.itemRepository = itemRepository;
     }
 
@@ -25,11 +28,16 @@ public class ItemService {
     public Optional<Item> findByIdItem(int id){
         return itemRepository.findById(id);
     }
-
-    public Item createItem(String title){
-        Item item = new Item();
-        item.setTitle(title);
+    //Метод для создания итемс в группе,(я сделал замену обичного метода)
+    public Item createItemInGroup(Item item, int groupId){
+        // 1. Ищем группу, чтобы привязать к ней Item
+        Group group = groupRepository.findById(groupId)
+                .orElseThrow(() -> new GroupNotFoundException("Group not found"));
+        // 2. Устанавливаем связь item → group
+        item.setGroup(group);
+        // 3. Устанавливаем дату создания
         item.setCreated_at(LocalDateTime.now());
+        // 4. Сохраняем
         return itemRepository.save(item);
     }
 
