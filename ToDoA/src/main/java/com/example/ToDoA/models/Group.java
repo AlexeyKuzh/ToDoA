@@ -1,5 +1,6 @@
 package com.example.ToDoA.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,8 +16,17 @@ public class Group {
     @Column(name = "created_at")
     private LocalDateTime created_at;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("group")
     private List<Item> itemList;
+
+    public List<Item> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<Item> itemList) {
+        this.itemList = itemList;
+    }
 
     public int getId() {
         return id;

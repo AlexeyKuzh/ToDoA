@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class GroupService {
 
     private final GroupRepository groupRepository;
+
     @Autowired
     public GroupService(GroupRepository groupRepository) {
         this.groupRepository = groupRepository;

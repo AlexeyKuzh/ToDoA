@@ -20,12 +20,8 @@ public class ItemController {
         this.itemService = itemService;
     }
     //Обычние CRUD методы
-    @GetMapping
-    public List<Item> getAllItems(){
-        return itemService.findAllItems();
-    }
     // я думаю он не нужен
-    @GetMapping("/items/{id}")
+    @GetMapping("/{id}")
     public Optional<Item> getByIdItem(@PathVariable int id){
         return itemService.findByIdItem(id);
     }
